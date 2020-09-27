@@ -81,6 +81,7 @@ func (r *sceneResolver) Paths(ctx context.Context, obj *models.Scene) (*models.S
 	screenshotPath := builder.GetScreenshotURL(obj.UpdatedAt.Timestamp)
 	previewPath := builder.GetStreamPreviewURL()
 	streamPath := builder.GetStreamURL()
+	deoVRPath := builder.GetDeoVRURL()
 	webpPath := builder.GetStreamPreviewImageURL()
 	vttPath := builder.GetSpriteVTTURL()
 	chaptersVttPath := builder.GetChaptersVTTURL()
@@ -91,6 +92,7 @@ func (r *sceneResolver) Paths(ctx context.Context, obj *models.Scene) (*models.S
 		Webp:        &webpPath,
 		Vtt:         &vttPath,
 		ChaptersVtt: &chaptersVttPath,
+		DeoVr:       &deoVRPath,
 	}, nil
 }
 

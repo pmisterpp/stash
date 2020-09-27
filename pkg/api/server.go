@@ -53,8 +53,12 @@ func authenticateHandler() func(http.Handler) http.Handler {
 			userID := ""
 			var err error
 
-			// handle session
 			userID, err = getSessionUserID(w, r)
+
+			// handle session
+			if userID == "" {
+				userID, err = getDeoVRAuthUserID(w, r)
+			}
 
 			if err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
@@ -71,6 +75,11 @@ func authenticateHandler() func(http.Handler) http.Handler {
 				if r.URL.Path == "/graphql" {
 					w.Header().Add("WWW-Authenticate", `FormBased`)
 					w.WriteHeader(http.StatusUnauthorized)
+					return
+				}
+
+				if strings.HasPrefix(r.URL.Path, "/deovr") {
+					WriteDeoVRUnauthorized(w)
 					return
 				}
 
@@ -152,6 +161,7 @@ func Start() {
 	r.Mount("/movie", movieRoutes{}.Routes())
 	r.Mount("/tag", tagRoutes{}.Routes())
 	r.Mount("/downloads", downloadsRoutes{}.Routes())
+	r.Mount("/deovr", deovrRoutes{}.Routes())
 
 	r.HandleFunc("/css", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/css")

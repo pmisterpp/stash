@@ -178,7 +178,7 @@ export class ScenePlayerImpl extends React.Component<
   private makePlaylist() {
     const { scene } = this.props;
 
-    return {
+    const playlist: any = {
       image: scene.paths.screenshot,
       tracks: [
         {
@@ -197,7 +197,9 @@ export class ScenePlayerImpl extends React.Component<
           label: s.label,
         };
       }),
+      stereomode:'monoscopic',
     };
+    return playlist;
   }
 
   private makeJWPlayerConfig(scene: GQL.SceneDataFragment) {
@@ -284,6 +286,8 @@ export class ScenePlayerImpl extends React.Component<
       className += " portrait";
     }
 
+    const isVr = this.props.scene.tags.map(tag => tag.name.toLowerCase()).includes("vr");
+
     return (
       <div id="jwplayer-container" className={className}>
         <ReactJWPlayer
@@ -300,6 +304,10 @@ export class ScenePlayerImpl extends React.Component<
           onSeek={this.onScrubberSeek}
           onScrolled={this.onScrubberScrolled}
         />
+        <a href="deovr://https://stash.janko.pro">Open in DeoVR</a>
+        <a href="deovr://stash.janko.pro">Open in DeoVR</a>
+
+        {isVr && <a href={"deovr://" + this.props.scene.paths.deo_vr || ''} >Open in DeoVR</a>}
       </div>
     );
   }

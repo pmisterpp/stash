@@ -7,6 +7,7 @@ require (
 	github.com/bmatcuk/doublestar/v2 v2.0.1
 	github.com/chromedp/cdproto v0.0.0-20200608134039-8a80cdaf865c
 	github.com/chromedp/chromedp v0.5.3
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/disintegration/imaging v1.6.0
 	github.com/go-chi/chi v4.0.2+incompatible
 	github.com/gobuffalo/packr/v2 v2.0.2

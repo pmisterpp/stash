@@ -28,6 +28,7 @@ fragment SceneData on Scene {
     webp
     vtt
     chapters_vtt
+    deo_vr
   }
 
   scene_markers {
